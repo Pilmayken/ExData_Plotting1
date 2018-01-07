@@ -1,3 +1,14 @@
+setwd("C:/Users/Carolina/Documents/Data scientist/exploratory data analysis/")
+
+# Extract and set data
+fulldata <- read.table("household_power_consumption.txt", header = TRUE, sep = ";", na.strings = "?")
+fulldata$Date <- as.Date(fulldata$Date, "%d/%m/%Y")
+extracteddata <- subset(fulldata, Date >= as.Date("2007-2-1") & Date <= as.Date("2007-2-2"))
+
+datetime <- paste(as.Date(extracteddata$Date), extracteddata$Time)
+extracteddata$datetime <- as.POSIXct(datetime)
+
+# create plot 1
 plot1 <- hist(extracteddata$Global_active_power, 
          col = "red", main = paste("Global Active Power"), 
          xlab = "Global Active Power (kilowatts)")
